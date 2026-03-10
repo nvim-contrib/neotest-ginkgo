@@ -47,9 +47,12 @@ describe("spec.build", function()
 			assert.is_false(table_contains(result.command, "--focus"))
 			assert.is_false(table_contains(result.command, "--focus-file"))
 
-			-- Should end with package path
+			-- Should end with relative package path (ginkgo runs from cwd)
 			local last_arg = result.command[#result.command]
-			assert.is_true(contains(last_arg, test_dir))
+			assert.are.equal("./...", last_arg)
+
+			-- cwd should be set to the directory path
+			assert.are.equal(test_dir, result.cwd)
 		end)
 	end)
 
@@ -78,9 +81,12 @@ describe("spec.build", function()
 			-- Should NOT have --focus pattern for file-level runs
 			assert.is_false(table_contains(result.command, "--focus"))
 
-			-- Package path should be the parent directory
+			-- Package path should be relative (ginkgo runs from cwd)
 			local last_arg = result.command[#result.command]
-			assert.are.equal("/project/pkg/...", last_arg)
+			assert.are.equal("./...", last_arg)
+
+			-- cwd should be the parent directory of the file
+			assert.are.equal("/project/pkg", result.cwd)
 		end)
 	end)
 

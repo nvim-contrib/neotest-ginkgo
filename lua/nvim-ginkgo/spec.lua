@@ -114,12 +114,13 @@ function M.build(args)
 		table.insert(cargs, value)
 	end
 
-	-- Add package path (directory/... runs all tests in directory recursively)
-	table.insert(cargs, focus_dir_path .. plenary.path.sep .. "...")
+	-- Add package path relative to focus_dir_path (cwd)
+	table.insert(cargs, "." .. plenary.path.sep .. "...")
 
 	-- Return RunSpec
 	return {
 		command = cargs,
+		cwd = focus_dir_path,
 		context = {
 			-- Store position info for result parsing
 			report_input_type = position.type,

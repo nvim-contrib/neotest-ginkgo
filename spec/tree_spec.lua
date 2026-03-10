@@ -120,8 +120,8 @@ describe("tree.parse_positions", function()
 		assert.is_not_nil(outer_test)
 		assert.are.equal("test", outer_test.type)
 
-		-- Find When
-		local when_node = tree_helpers.find_position(result, '"something happens"')
+		-- Find When: When("something happens") becomes "when something happens" to match Ginkgo report
+		local when_node = tree_helpers.find_position(result, '"when something happens"')
 		assert.is_not_nil(when_node)
 		assert.are.equal("namespace", when_node.type)
 
@@ -139,6 +139,35 @@ describe("tree.parse_positions", function()
 		local inner_test = tree_helpers.find_position(result, '"test in inner"')
 		assert.is_not_nil(inner_test)
 		assert.are.equal("test", inner_test.type)
+	end)
+
+	nio_tests.it("prepends 'when ' to When node names to match Ginkgo report", function()
+		local fixture = fixtures.path("ginkgo/nested_test.go")
+		local result = tree.parse_positions(fixture)
+
+		assert.is_not_nil(result)
+
+		-- When("something happens") must be stored as "when something happens"
+		-- so that it matches ContainerHierarchyTexts in the Ginkgo JSON report
+		local when_node = tree_helpers.find_position(result, '"when something happens"')
+		assert.is_not_nil(when_node, "When node name must include 'when ' prefix")
+		assert.are.equal("namespace", when_node.type)
+
+		-- The child test ID must reflect the corrected parent name
+		local when_test = tree_helpers.find_position(result, '"test in when"')
+		assert.is_not_nil(when_test)
+		assert.is_true(
+			when_test.id:find('"when something happens"', 1, true) ~= nil,
+			"Child ID must contain corrected When parent name"
+		)
+
+		-- Inner context nested under When must also have the corrected parent in its ID
+		local inner_context = tree_helpers.find_position(result, '"inner context"')
+		assert.is_not_nil(inner_context)
+		assert.is_true(
+			inner_context.id:find('"when something happens"', 1, true) ~= nil,
+			"Nested namespace ID must contain corrected When parent name"
+		)
 	end)
 
 	nio_tests.it("returns nil for non-existent file", function()

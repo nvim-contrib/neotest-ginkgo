@@ -6,6 +6,43 @@ local M = {}
 -- Query cache to avoid repeated file reads
 local query_cache = {}
 
+-- When variants that Ginkgo implements as Describe with a "when " prefix.
+-- When("text") compiles to Describe("when text") internally, so the captured
+-- name must include the "when " prefix to match Ginkgo's JSON report output.
+local WHEN_VARIANTS = { "When", "FWhen", "PWhen", "XWhen" }
+
+-- Post-process the parsed tree to fix When node names and propagate corrected
+-- IDs down to all descendant nodes.
+local function fix_when_names(tree, lines)
+	local function fix_subtree(node, parent_id)
+		local data = node:data()
+		local my_id = parent_id .. "::" .. data.name
+		data.id = my_id
+
+		if data.type == "namespace" then
+			local line = lines[data.range[1] + 1] or ""
+			for _, variant in ipairs(WHEN_VARIANTS) do
+				if line:match("^%s*" .. variant .. "%s*%(") then
+					local inner = data.name:sub(2, -2)
+					data.name = '"when ' .. inner .. '"'
+					my_id = parent_id .. "::" .. data.name
+					data.id = my_id
+					break
+				end
+			end
+		end
+
+		for _, child in ipairs(node:children()) do
+			fix_subtree(child, my_id)
+		end
+	end
+
+	local root = tree:data()
+	for _, child in ipairs(tree:children()) do
+		fix_subtree(child, root.id)
+	end
+end
+
 -- Get the plugin root directory
 local function get_plugin_root()
 	local source = debug.getinfo(1, "S").source:sub(2)
@@ -59,6 +96,18 @@ function M.parse_positions(path)
 	local ok, tree = pcall(lib.treesitter.parse_positions, path, combined_query, opts)
 	if not ok then
 		return nil
+	end
+
+	-- Fix When node names: When("text") is Describe("when text") in Ginkgo,
+	-- so we prepend "when " to match what the JSON report will contain.
+	local lines = {}
+	local file = io.open(path, "r")
+	if file then
+		for line in file:lines() do
+			table.insert(lines, line)
+		end
+		file:close()
+		fix_when_names(tree, lines)
 	end
 
 	return tree
