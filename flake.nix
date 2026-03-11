@@ -18,22 +18,23 @@
           neotest
         ];
 
-        neovimWithPlugins = pkgs.neovim.override {
-          configure = {
-            # Set rtp directly in sysinit.vim so plugins are findable
-            # even when neovim is invoked with --noplugin (as in make test)
-            customRC = pkgs.lib.concatMapStringsSep "\n"
-              (p: "set runtimepath^=${p}")
-              plugins;
-          };
-        };
+        # Wrapper script named "nvim" that injects plugin rtp entries via
+        # --cmd before any other arguments, so plugins are findable even
+        # when the caller uses --noplugin (as make test does).
+        neovimForTests = pkgs.writeShellScriptBin "nvim" ''
+          exec ${pkgs.neovim}/bin/nvim \
+            ${pkgs.lib.concatMapStringsSep " \\\n            "
+              (p: "--cmd \"set runtimepath^=${p}\"")
+              plugins} \
+            "$@"
+        '';
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            neovimWithPlugins
-            go
-            ginkgo
+          packages = [
+            neovimForTests
+            pkgs.go
+            pkgs.ginkgo
           ];
         };
       });
