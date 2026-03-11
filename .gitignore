@@ -39,6 +39,3 @@ luac.out
 *.x86_64
 *.hex
 
-# AI
-.github/sessions
-.github/worktrees
