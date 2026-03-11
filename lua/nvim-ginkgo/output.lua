@@ -24,10 +24,14 @@ local function create_location_path(spec)
 	return spec.FileName .. ":" .. spec.LineNumber
 end
 
+---Create a human-readable test description with hierarchy breadcrumb.
+---Container hierarchy segments alternate gray/white for readability.
+---@param spec table The spec item from Ginkgo report
+---@param leaf_color string|nil ANSI color code applied only to the leaf node name
 ---@return string
-function M.create_spec_description(spec, color)
-	if color == nil then
-		color = ""
+function M.create_spec_description(spec, leaf_color)
+	if leaf_color == nil then
+		leaf_color = ""
 	end
 
 	local spec_desc_texts = {}
@@ -47,7 +51,7 @@ function M.create_spec_description(spec, color)
 	local spec_desc = table.concat(spec_desc_texts, " ")
 	local spec_name = "[" .. spec.LeafNodeType .. "] " .. spec.LeafNodeText
 	-- done
-	return spec_desc .. " " .. color .. spec_name
+	return spec_desc .. " " .. leaf_color .. spec_name
 end
 
 ---@return string

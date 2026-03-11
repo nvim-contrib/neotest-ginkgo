@@ -106,9 +106,10 @@ function M.parse(spec, result, tree)
 	for _, suite_item in pairs(report) do
 		if suite_item.SpecReports == nil then
 			local suite_item_node = {}
-			-- set the node errors
 			if suite_item.SuiteSucceeded then
 				suite_item_node.status = "passed"
+			else
+				suite_item_node.status = "failed"
 			end
 
 			local suite_item_node_id = suite_item.SuitePath
@@ -117,7 +118,7 @@ function M.parse(spec, result, tree)
 
 		-- Phase 1: Process leaf tests and track namespace data
 		for _, spec_item in pairs(suite_item.SpecReports or {}) do
-			if spec_item.LeafNodeType == "It" then
+			if spec_item.LeafNodeType == "It" or spec_item.LeafNodeType == "Entry" then
 				local spec_item_node = {}
 				-- set the node short attribute
 				spec_item_node.short = "[" .. string.upper(spec_item.State) .. "]"

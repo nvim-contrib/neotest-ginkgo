@@ -289,6 +289,28 @@ describe("report.parse", function()
 			-- Cleanup
 			async.fn.delete(report_path)
 		end)
+
+		nio_tests.it("marks suite as failed when SuiteSucceeded is false", function()
+			local report_data = {
+				{
+					SuitePath = "/test/example_test.go",
+					SuiteSucceeded = false,
+					-- SpecReports is nil
+				},
+			}
+
+			local report_path = create_temp_report(report_data)
+			local spec = create_mock_spec(report_path)
+
+			local results = report.parse(spec, {}, nil)
+
+			assert.is_not_nil(results)
+			assert.is_not_nil(results["/test/example_test.go"])
+			assert.are.equal("failed", results["/test/example_test.go"].status)
+
+			-- Cleanup
+			async.fn.delete(report_path)
+		end)
 	end)
 
 	describe("error handling", function()
@@ -695,6 +717,127 @@ describe("report.parse", function()
 			assert.are.equal("passed", results[level1_id].status)
 			assert.are.equal("passed", results[level2_id].status)
 			assert.are.equal("passed", results[level3_id].status)
+
+			-- Cleanup
+			async.fn.delete(report_path)
+		end)
+
+		nio_tests.it("parses passing DescribeTable Entry nodes", function()
+			local report_data = {
+				{
+					SuitePath = "/test/example_test.go",
+					SuiteSucceeded = true,
+					SpecReports = {
+						{
+							LeafNodeType = "Entry",
+							LeafNodeText = "1 + 1 = 2",
+							State = "passed",
+							LeafNodeLocation = {
+								FileName = "/test/example_test.go",
+								LineNumber = 15,
+							},
+							ContainerHierarchyTexts = { "Math Operations", "Addition" },
+							CapturedGinkgoWriterOutput = "",
+						},
+						{
+							LeafNodeType = "Entry",
+							LeafNodeText = "2 + 3 = 5",
+							State = "passed",
+							LeafNodeLocation = {
+								FileName = "/test/example_test.go",
+								LineNumber = 16,
+							},
+							ContainerHierarchyTexts = { "Math Operations", "Addition" },
+							CapturedGinkgoWriterOutput = "",
+						},
+					},
+				},
+			}
+
+			local report_path = create_temp_report(report_data)
+			local spec = create_mock_spec(report_path)
+
+			local results = report.parse(spec, {}, nil)
+
+			assert.is_not_nil(results)
+
+			local found_first = false
+			local found_second = false
+			for id, result in pairs(results) do
+				if id:match("1 %+ 1 = 2") then
+					found_first = true
+					assert.are.equal("passed", result.status)
+					assert.are.equal(15, result.location)
+				end
+				if id:match("2 %+ 3 = 5") then
+					found_second = true
+					assert.are.equal("passed", result.status)
+				end
+			end
+			assert.is_true(found_first, "Expected Entry '1 + 1 = 2' in results")
+			assert.is_true(found_second, "Expected Entry '2 + 3 = 5' in results")
+
+			-- Namespace should also be generated
+			local table_id = '/test/example_test.go::"Math Operations"::"Addition"'
+			assert.is_not_nil(results[table_id], "Expected DescribeTable namespace result")
+			assert.are.equal("passed", results[table_id].status)
+
+			-- Cleanup
+			async.fn.delete(report_path)
+		end)
+
+		nio_tests.it("parses failing DescribeTable Entry nodes", function()
+			local report_data = {
+				{
+					SuitePath = "/test/example_test.go",
+					SuiteSucceeded = false,
+					SpecReports = {
+						{
+							LeafNodeType = "Entry",
+							LeafNodeText = "negative numbers",
+							State = "failed",
+							LeafNodeLocation = {
+								FileName = "/test/example_test.go",
+								LineNumber = 17,
+							},
+							ContainerHierarchyTexts = { "Math Operations", "Addition" },
+							Failure = {
+								Message = "Expected -1 to equal 1",
+								FailureNodeType = "Entry",
+								FailureNodeLocation = {
+									FileName = "/test/example_test.go",
+									LineNumber = 17,
+								},
+								Location = {
+									FileName = "/test/example_test.go",
+									LineNumber = 18,
+									FullStackTrace = "stack trace",
+								},
+							},
+							CapturedGinkgoWriterOutput = "",
+						},
+					},
+				},
+			}
+
+			local report_path = create_temp_report(report_data)
+			local spec = create_mock_spec(report_path)
+
+			local results = report.parse(spec, {}, nil)
+
+			assert.is_not_nil(results)
+
+			local found = false
+			for id, result in pairs(results) do
+				if id:match("negative numbers") then
+					found = true
+					assert.are.equal("failed", result.status)
+					assert.is_table(result.errors)
+					assert.are.equal(1, #result.errors)
+					assert.are.equal("Expected -1 to equal 1", result.errors[1].message)
+				end
+			end
+			assert.is_true(found, "Expected failing Entry 'negative numbers' in results")
 
 			-- Cleanup
 			async.fn.delete(report_path)
