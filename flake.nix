@@ -11,14 +11,20 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
 
+        plugins = with pkgs.vimPlugins; [
+          plenary-nvim
+          nvim-treesitter
+          nvim-nio
+          neotest
+        ];
+
         neovimWithPlugins = pkgs.neovim.override {
           configure = {
-            packages.nvimGinkgo.start = with pkgs.vimPlugins; [
-              plenary-nvim
-              nvim-treesitter
-              nvim-nio
-              neotest
-            ];
+            # Set rtp directly in sysinit.vim so plugins are findable
+            # even when neovim is invoked with --noplugin (as in make test)
+            customRC = pkgs.lib.concatMapStringsSep "\n"
+              (p: "set runtimepath^=${p}")
+              plugins;
           };
         };
       in
