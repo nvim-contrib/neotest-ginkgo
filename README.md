@@ -8,6 +8,8 @@
 
 A [Neotest](https://github.com/nvim-neotest/neotest) adapter for the [Ginkgo](https://github.com/onsi/ginkgo) BDD testing framework — run, navigate, and inspect your Go tests without leaving Neovim.
 
+<img src="doc/img/demo.webp" alt="neotest-ginkgo demo" width="100%">
+
 ## Features
 
 - Run individual specs, describe blocks, or entire suites from within Neovim
