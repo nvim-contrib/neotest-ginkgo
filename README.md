@@ -6,17 +6,18 @@
 [![Neovim](https://img.shields.io/badge/Neovim-0.9%2B-blueviolet?logo=neovim&logoColor=white)](https://neovim.io)
 [![Neotest](https://img.shields.io/badge/neotest-adapter-green)](https://github.com/nvim-neotest/neotest)
 
-A [Neotest](https://github.com/nvim-neotest/neotest) adapter for the [Ginkgo](https://github.com/onsi/ginkgo) BDD testing framework — run, navigate, and inspect your Go tests without leaving Neovim.
+[Neotest](https://github.com/nvim-neotest/neotest) adapter for running [Ginkgo v2](https://github.com/onsi/ginkgo) tests in Neovim. Run, debug, and inspect your Go BDD specs directly from the editor — with full support for nested `Describe`/`Context`/`When`/`It` hierarchies, `DescribeTable`/`Entry`, and DAP debugging via [nvim-dap-go](https://github.com/leoluz/nvim-dap-go).
 
 <img src="doc/img/demo.webp" alt="neotest-ginkgo demo" width="100%">
 
 ## Features
 
-- Run individual specs, describe blocks, or entire suites from within Neovim
-- Supports `Describe`, `Context`, `It`, `When`, `DescribeTable`, and `Entry`
-- Nested test structures displayed in the Neotest tree
-- DAP integration for debugging individual specs
-- Output panel with structured test results
+- Run individual specs, describe blocks, or entire suites
+- Full Ginkgo v2 support: `Describe`, `Context`, `It`, `When`, `Specify`, `DescribeTable`, `DescribeTableSubtree`, and `Entry`
+- Focus (`FDescribe`, `FIt`) and pending (`PDescribe`, `PIt`, `XIt`) variants
+- Nested test hierarchy displayed in the Neotest summary tree
+- DAP integration for step-through debugging of individual specs
+- Structured output panel with color-coded test results
 - Works with `lazy.nvim`, `packer.nvim`, and any other plugin manager
 
 ## Requirements
@@ -25,7 +26,7 @@ A [Neotest](https://github.com/nvim-neotest/neotest) adapter for the [Ginkgo](ht
 - [neotest](https://github.com/nvim-neotest/neotest)
 - [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter) with the `go` parser installed
 - [nvim-nio](https://github.com/nvim-neotest/nvim-nio)
-- [Ginkgo](https://github.com/onsi/ginkgo) (`go install github.com/onsi/ginkgo/v2/ginkgo@latest`)
+- [Ginkgo v2](https://github.com/onsi/ginkgo) (`go install github.com/onsi/ginkgo/v2/ginkgo@latest`)
 
 ## Installation
 
@@ -70,6 +71,19 @@ use {
     })
   end,
 }
+```
+
+## Configuration
+
+You can customize the Ginkgo command and DAP arguments via `setup()`:
+
+```lua
+require("neotest-ginkgo").setup({
+  -- Base ginkgo command (default: {"ginkgo", "run", "-v"})
+  command = { "ginkgo", "run", "-v", "--race" },
+  -- DAP arguments with --ginkgo. prefix (default: {"--ginkgo.v"})
+  dap = { "--ginkgo.v", "--ginkgo.trace" },
+})
 ```
 
 ## Usage
