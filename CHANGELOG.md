@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.2.0...v0.3.0) (2026-03-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* Renamed from nvim-ginkgo to neotest-ginkgo. Update your config: "nvim-contrib/neotest-ginkgo" and require("neotest-ginkgo").
+
+### Code Refactoring
+
+* rename nvim-ginkgo to neotest-ginkgo ([aef8ef6](https://github.com/nvim-contrib/neotest-ginkgo/commit/aef8ef641cd118803f8fb97eb8032e712a2a6035))
+
 ## [0.2.0](https://github.com/nvim-contrib/nvim-ginkgo/compare/v0.1.0...v0.2.0) (2026-03-11)
 
 
