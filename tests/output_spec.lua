@@ -4,9 +4,9 @@
 
 local nio_tests = require("nio.tests")
 local output = require("neotest-ginkgo.output")
-local helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/output.lua")
+local helpers = dofile(vim.fn.getcwd() .. "/tests/helpers/output.lua")
 
--- Use helpers from spec/helpers/output.lua
+-- Use helpers from tests/helpers/output.lua
 local create_mock_spec = helpers.create_mock_spec
 
 describe("output.create_spec_description", function()

@@ -4,9 +4,9 @@
 
 local nio_tests = require("nio.tests")
 local spec = require("neotest-ginkgo.spec")
-local helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/spec.lua")
+local helpers = dofile(vim.fn.getcwd() .. "/tests/helpers/spec.lua")
 
--- Use helpers from spec/helpers/spec.lua
+-- Use helpers from tests/helpers/spec.lua
 local create_mock_tree = helpers.create_mock_tree
 local contains = helpers.contains
 local table_contains = helpers.table_contains
@@ -15,12 +15,12 @@ describe("spec.build", function()
 	describe("directory position", function()
 		nio_tests.it("builds command for directory with no filters", function()
 			-- Use an actual existing directory for the test
-			local test_dir = vim.fn.getcwd() .. "/spec"
+			local test_dir = vim.fn.getcwd() .. "/tests"
 
 			local position = {
 				type = "dir",
 				path = test_dir,
-				name = "spec",
+				name = "tests",
 				range = { 0, 0, 0, 0 },
 			}
 

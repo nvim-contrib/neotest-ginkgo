@@ -6,9 +6,9 @@ local nio_tests = require("nio.tests")
 local report = require("neotest-ginkgo.report")
 local async = require("neotest.async")
 local lib = require("neotest.lib")
-local helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/report.lua")
+local helpers = dofile(vim.fn.getcwd() .. "/tests/helpers/report.lua")
 
--- Use helpers from spec/helpers/report.lua
+-- Use helpers from tests/helpers/report.lua
 local create_temp_report = helpers.create_temp_report
 local create_mock_spec = helpers.create_mock_spec
 

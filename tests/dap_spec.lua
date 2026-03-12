@@ -3,7 +3,7 @@
 ---@diagnostic disable: undefined-field
 
 local nio_tests = require("nio.tests")
-local helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/spec.lua")
+local helpers = dofile(vim.fn.getcwd() .. "/tests/helpers/spec.lua")
 
 -- Mock dap-go to avoid dependency
 package.loaded["dap-go"] = {}
@@ -11,7 +11,7 @@ package.loaded["dap-go"] = {}
 local dap = require("neotest-ginkgo.dap")
 local spec = require("neotest-ginkgo.spec")
 
--- Use helper from spec/helpers/spec.lua
+-- Use helper from tests/helpers/spec.lua
 local create_mock_tree = helpers.create_mock_tree
 
 describe("dap.build", function()
@@ -169,13 +169,13 @@ describe("dap.build", function()
 	end)
 
 	nio_tests.it("handles directory positions", function()
-		-- Use spec directory which exists
-		local test_dir = vim.fn.getcwd() .. "/spec"
+		-- Use tests directory which exists
+		local test_dir = vim.fn.getcwd() .. "/tests"
 
 		local position = {
 			type = "dir",
 			path = test_dir,
-			name = "spec",
+			name = "tests",
 			range = { 0, 0, 0, 0 },
 		}
 

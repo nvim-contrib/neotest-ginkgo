@@ -7,7 +7,7 @@ local M = {}
 -- @return string Absolute path to fixture file
 function M.path(relative_path)
 	local cwd = vim.fn.getcwd()
-	return cwd .. "/spec/fixtures/" .. relative_path
+	return cwd .. "/tests/fixtures/" .. relative_path
 end
 
 return M

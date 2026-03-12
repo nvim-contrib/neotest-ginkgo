@@ -93,7 +93,7 @@ nix develop
 make test
 ```
 
-Without Nix, update `spec/setup.lua` with the paths to your local plugin installations, then:
+Without Nix, update `tests/setup.lua` with the paths to your local plugin installations, then:
 
 ```bash
 make test
