@@ -1,8 +1,8 @@
-# nvim-ginkgo
+# neotest-ginkgo
 
-[![test](https://github.com/nvim-contrib/nvim-ginkgo/actions/workflows/test.yml/badge.svg)](https://github.com/nvim-contrib/nvim-ginkgo/actions/workflows/test.yml)
-[![Release](https://img.shields.io/github/v/release/nvim-contrib/nvim-ginkgo?include_prereleases)](https://github.com/nvim-contrib/nvim-ginkgo/releases)
-[![License](https://img.shields.io/github/license/nvim-contrib/nvim-ginkgo)](LICENSE)
+[![test](https://github.com/nvim-contrib/neotest-ginkgo/actions/workflows/test.yml/badge.svg)](https://github.com/nvim-contrib/neotest-ginkgo/actions/workflows/test.yml)
+[![Release](https://img.shields.io/github/v/release/nvim-contrib/neotest-ginkgo?include_prereleases)](https://github.com/nvim-contrib/neotest-ginkgo/releases)
+[![License](https://img.shields.io/github/license/nvim-contrib/neotest-ginkgo)](LICENSE)
 [![Neovim](https://img.shields.io/badge/Neovim-0.9%2B-blueviolet?logo=neovim&logoColor=white)](https://neovim.io)
 [![Neotest](https://img.shields.io/badge/neotest-adapter-green)](https://github.com/nvim-neotest/neotest)
 
@@ -37,12 +37,12 @@ A [Neotest](https://github.com/nvim-neotest/neotest) adapter for the [Ginkgo](ht
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "nvim-contrib/nvim-ginkgo",
+    "nvim-contrib/neotest-ginkgo",
   },
   config = function()
     require("neotest").setup({
       adapters = {
-        require("nvim-ginkgo"),
+        require("neotest-ginkgo"),
       },
     })
   end,
@@ -58,12 +58,12 @@ use {
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "nvim-contrib/nvim-ginkgo",
+    "nvim-contrib/neotest-ginkgo",
   },
   config = function()
     require("neotest").setup({
       adapters = {
-        require("nvim-ginkgo"),
+        require("neotest-ginkgo"),
       },
     })
   end,

@@ -4,7 +4,7 @@
 
 local M = {}
 
----@class nvim-ginkgo.ConfigDap
+---@class neotest-ginkgo.ConfigDap
 ---@field args string[]
 M.config = {
 	"--ginkgo.v",
@@ -29,7 +29,7 @@ function M.setup(config)
 	end
 
 	if type(config) ~= "table" then
-		error("nvim-ginkgo.dap.setup: config must be a table (array of strings)")
+		error("neotest-ginkgo.dap.setup: config must be a table (array of strings)")
 	end
 
 	M.config = config

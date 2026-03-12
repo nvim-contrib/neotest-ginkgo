@@ -53,7 +53,7 @@ function M.setup(config)
 	end
 
 	if type(config) ~= "table" then
-		error("nvim-ginkgo.spec.setup: config must be a table (array of strings)")
+		error("neotest-ginkgo.spec.setup: config must be a table (array of strings)")
 	end
 
 	M.config = config

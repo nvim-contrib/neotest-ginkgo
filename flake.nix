@@ -1,5 +1,5 @@
 {
-  description = "nvim-ginkgo - neotest adapter for Ginkgo test framework";
+  description = "neotest-ginkgo - neotest adapter for Ginkgo test framework";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";

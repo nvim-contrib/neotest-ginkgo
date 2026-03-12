@@ -3,7 +3,7 @@
 ---@diagnostic disable: undefined-field
 
 local nio_tests = require("nio.tests")
-local spec = require("nvim-ginkgo.spec")
+local spec = require("neotest-ginkgo.spec")
 local helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/spec.lua")
 
 -- Use helpers from spec/helpers/spec.lua
@@ -529,7 +529,7 @@ describe("spec.setup", function()
 	nio_tests.it("errors when config is not a table", function()
 		assert.has_error(function()
 			spec.setup("invalid")
-		end, "nvim-ginkgo.spec.setup: config must be a table (array of strings)")
+		end, "neotest-ginkgo.spec.setup: config must be a table (array of strings)")
 	end)
 
 	nio_tests.it("uses custom config in build() calls", function()

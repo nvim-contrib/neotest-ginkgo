@@ -1,7 +1,7 @@
 local lib = require("neotest.lib")
 local async = require("neotest.async")
 local logger = require("neotest.logging")
-local output = require("nvim-ginkgo.output")
+local output = require("neotest-ginkgo.output")
 
 local M = {}
 

@@ -3,7 +3,7 @@
 
 ---@diagnostic disable: undefined-field
 
-local tree = require("nvim-ginkgo.tree")
+local tree = require("neotest-ginkgo.tree")
 local tree_helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/tree.lua")
 local fixtures = dofile(vim.fn.getcwd() .. "/spec/fixtures/init.lua")
 local nio_tests = require("nio.tests")

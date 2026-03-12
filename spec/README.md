@@ -1,6 +1,6 @@
 # Tests
 
-This directory contains integration tests for nvim-ginkgo using plenary.nvim's test framework.
+This directory contains integration tests for neotest-ginkgo using plenary.nvim's test framework.
 
 ## Prerequisites
 

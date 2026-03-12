@@ -3,7 +3,7 @@
 ---@diagnostic disable: undefined-field
 
 local nio_tests = require("nio.tests")
-local output = require("nvim-ginkgo.output")
+local output = require("neotest-ginkgo.output")
 local helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/output.lua")
 
 -- Use helpers from spec/helpers/output.lua

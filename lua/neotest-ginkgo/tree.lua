@@ -58,7 +58,7 @@ local function load_query(name)
 	end
 
 	local plugin_root = get_plugin_root()
-	local query_path = plugin_root .. "/lua/nvim-ginkgo/queries/ginkgo/" .. name .. ".scm"
+	local query_path = plugin_root .. "/lua/neotest-ginkgo/queries/ginkgo/" .. name .. ".scm"
 
 	local file = io.open(query_path, "r")
 	if not file then

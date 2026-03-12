@@ -8,8 +8,8 @@ local helpers = dofile(vim.fn.getcwd() .. "/spec/helpers/spec.lua")
 -- Mock dap-go to avoid dependency
 package.loaded["dap-go"] = {}
 
-local dap = require("nvim-ginkgo.dap")
-local spec = require("nvim-ginkgo.spec")
+local dap = require("neotest-ginkgo.dap")
+local spec = require("neotest-ginkgo.spec")
 
 -- Use helper from spec/helpers/spec.lua
 local create_mock_tree = helpers.create_mock_tree
@@ -238,7 +238,7 @@ describe("dap.setup", function()
 	nio_tests.it("errors when config is not a table", function()
 		assert.has_error(function()
 			dap.setup("invalid")
-		end, "nvim-ginkgo.dap.setup: config must be a table (array of strings)")
+		end, "neotest-ginkgo.dap.setup: config must be a table (array of strings)")
 	end)
 
 	nio_tests.it("uses custom config in build() calls", function()
