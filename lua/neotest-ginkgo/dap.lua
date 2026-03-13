@@ -54,9 +54,14 @@ function M.build(context)
 	-- When debugging with Delve, Ginkgo flags need the --ginkgo. prefix
 	local dap_args = vim.deepcopy(M.config)
 
+	local report_dir = vim.fn.fnamemodify(report_path, ":h")
+	local report_name = vim.fn.fnamemodify(report_path, ":t")
+
 	vim.list_extend(dap_args, {
+		"--ginkgo.output-dir",
+		report_dir,
 		"--ginkgo.json-report",
-		report_path,
+		report_name,
 		"--ginkgo.silence-skips",
 	})
 

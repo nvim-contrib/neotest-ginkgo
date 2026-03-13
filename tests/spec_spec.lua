@@ -38,9 +38,10 @@ describe("spec.build", function()
 			assert.are.equal("run", result.command[2])
 			assert.is_true(table_contains(result.command, "-v"))
 
-			-- Should have --keep-going, --silence-skips, and --json-report
+			-- Should have --keep-going, --silence-skips, --output-dir, and --json-report
 			assert.is_true(table_contains(result.command, "--keep-going"))
 			assert.is_true(table_contains(result.command, "--silence-skips"))
+			assert.is_true(table_contains(result.command, "--output-dir"))
 			assert.is_true(table_contains(result.command, "--json-report"))
 
 			-- Should NOT have --focus or --focus-file for directory runs

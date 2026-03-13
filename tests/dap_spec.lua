@@ -54,6 +54,7 @@ describe("dap.build", function()
 		local strategy = dap.build(run_spec.context)
 
 		-- DAP args should have ginkgo prefix
+		assert.is_true(vim.tbl_contains(strategy.args, "--ginkgo.output-dir"))
 		assert.is_true(vim.tbl_contains(strategy.args, "--ginkgo.json-report"))
 		assert.is_true(vim.tbl_contains(strategy.args, "--ginkgo.silence-skips"))
 	end)
