@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.0...v0.3.1) (2026-03-13)
+
+
+### Bug Fixes
+
+* use --output-dir to write JSON report to temp directory ([0165184](https://github.com/nvim-contrib/neotest-ginkgo/commit/0165184811394acdb8f23c5e2033fdfe43ad8a29))
+
 ## [0.3.0](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.2.0...v0.3.0) (2026-03-12)
 
 
