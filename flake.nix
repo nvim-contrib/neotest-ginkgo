@@ -41,6 +41,7 @@
       in
       {
         devShells.default = pkgs.mkShell {
+          name = "neotest-ginkgo";
           packages = with pkgs; [
             neovimForTests
             go
