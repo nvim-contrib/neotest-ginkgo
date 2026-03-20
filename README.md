@@ -1,12 +1,12 @@
 # neotest-ginkgo
 
+> [Neotest](https://github.com/nvim-neotest/neotest) adapter for running [Ginkgo v2](https://github.com/onsi/ginkgo) tests in Neovim. Run, debug, and inspect your Go BDD specs directly from the editor — with full support for nested `Describe`/`Context`/`When`/`It` hierarchies, `DescribeTable`/`Entry`, and DAP debugging via [nvim-dap-go](https://github.com/leoluz/nvim-dap-go).
+
 [![test](https://github.com/nvim-contrib/neotest-ginkgo/actions/workflows/test.yml/badge.svg)](https://github.com/nvim-contrib/neotest-ginkgo/actions/workflows/test.yml)
 [![Release](https://img.shields.io/github/v/release/nvim-contrib/neotest-ginkgo?include_prereleases)](https://github.com/nvim-contrib/neotest-ginkgo/releases)
 [![License](https://img.shields.io/github/license/nvim-contrib/neotest-ginkgo)](LICENSE)
 [![Neovim](https://img.shields.io/badge/Neovim-0.9%2B-blueviolet?logo=neovim&logoColor=white)](https://neovim.io)
 [![Neotest](https://img.shields.io/badge/neotest-adapter-green)](https://github.com/nvim-neotest/neotest)
-
-[Neotest](https://github.com/nvim-neotest/neotest) adapter for running [Ginkgo v2](https://github.com/onsi/ginkgo) tests in Neovim. Run, debug, and inspect your Go BDD specs directly from the editor — with full support for nested `Describe`/`Context`/`When`/`It` hierarchies, `DescribeTable`/`Entry`, and DAP debugging via [nvim-dap-go](https://github.com/leoluz/nvim-dap-go).
 
 <img src="doc/img/demo.webp" alt="neotest-ginkgo demo" width="100%">
 
