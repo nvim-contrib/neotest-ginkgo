@@ -8,7 +8,7 @@
 [![Neovim](https://img.shields.io/badge/Neovim-0.9%2B-blueviolet?logo=neovim&logoColor=white)](https://neovim.io)
 [![Neotest](https://img.shields.io/badge/neotest-adapter-green)](https://github.com/nvim-neotest/neotest)
 
-<img src="doc/img/demo.webp" alt="neotest-ginkgo demo" width="100%">
+<img src="doc/tapes/output/demo.webp" alt="neotest-ginkgo demo" width="100%">
 
 ## Features
 
