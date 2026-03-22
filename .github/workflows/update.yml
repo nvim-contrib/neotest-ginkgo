@@ -13,13 +13,12 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@6.0.2
-      - uses: DeterminateSystems/nix-installer-action@21
-      - uses: DeterminateSystems/magic-nix-cache-action@13
-      - name: Update /Users/iamralch/Projects/github.com/nvim-contrib/neotest-ginkgoflake.lock
-        uses: DeterminateSystems/update-flake-lock@28
+      - uses: actions/checkout@v6
+      - uses: DeterminateSystems/nix-installer-action@v21
+      - uses: DeterminateSystems/magic-nix-cache-action@v13
+      - name: Update root flake.lock
+        uses: DeterminateSystems/update-flake-lock@v28
         with:
-          path-to-flake-dir: /Users/iamralch/Projects/github.com/nvim-contrib/neotest-ginkgo
-          pr-title: "chore(/Users/iamralch/Projects/github.com/nvim-contrib/neotest-ginkgo): update flake.lock dependencies"
+          pr-title: "chore: update flake.lock dependencies"
           pr-labels: |
             dependencies
