@@ -1,0 +1,25 @@
+name: Update flake locks
+
+on:
+  schedule:
+    - cron: "0 0 * * 1" # every Monday at midnight UTC
+  workflow_dispatch: # allow manual runs
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@6.0.2
+      - uses: DeterminateSystems/nix-installer-action@21
+      - uses: DeterminateSystems/magic-nix-cache-action@13
+      - name: Update /Users/iamralch/Projects/github.com/nvim-contrib/neotest-ginkgoflake.lock
+        uses: DeterminateSystems/update-flake-lock@28
+        with:
+          path-to-flake-dir: /Users/iamralch/Projects/github.com/nvim-contrib/neotest-ginkgo
+          pr-title: "chore(/Users/iamralch/Projects/github.com/nvim-contrib/neotest-ginkgo): update flake.lock dependencies"
+          pr-labels: |
+            dependencies
