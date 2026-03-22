@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.2](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.1...v0.3.2) (2026-03-22)
+
+
+### Bug Fixes
+
+* correct paths in demo tape files and README ([86f5a56](https://github.com/nvim-contrib/neotest-ginkgo/commit/86f5a5627d57a6e5327e309702322b5208b27265))
+
 ## [0.3.1](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.0...v0.3.1) (2026-03-13)
 
 
