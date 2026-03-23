@@ -2,8 +2,8 @@ name: Update flake locks
 
 on:
   schedule:
-    - cron: "0 0 * * 1" # every Monday at midnight UTC
-  workflow_dispatch: # allow manual runs
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -13,9 +13,12 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: DeterminateSystems/nix-installer-action@v21
-      - uses: DeterminateSystems/magic-nix-cache-action@v13
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v21
+      - name: Setup Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Update root flake.lock
         uses: DeterminateSystems/update-flake-lock@v28
         with:
