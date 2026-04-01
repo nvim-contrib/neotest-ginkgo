@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v21
+        uses: DeterminateSystems/nix-installer-action@v22
       - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
       - name: Update root flake.lock
