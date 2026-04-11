@@ -1,4 +1,4 @@
-name: Update flake locks
+name: Update Flake Locks
 
 on:
   schedule:
@@ -15,13 +15,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v22
+
       - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
+
       - name: Update root flake.lock
         uses: DeterminateSystems/update-flake-lock@v28
         with:
-          pr-title: "chore: update flake.lock dependencies"
-          pr-labels: |
-            dependencies
+          pr-labels: dependencies
