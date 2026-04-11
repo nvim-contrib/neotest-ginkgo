@@ -11,5 +11,6 @@
     "ghcr.io/devcontainers/features/nix:1": {
       "extraNixConfig": "experimental-features = nix-command flakes"
     }
-  }
+  },
+  "postCreateCommand": "sudo chown -R vscode:vscode /nix /home/vscode/.cache"
 }
