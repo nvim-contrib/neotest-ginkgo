@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.2...v0.3.3) (2026-04-11)
+
+
+### Bug Fixes
+
+* add postCreateCommand to restore nix volume permissions ([8c68de9](https://github.com/nvim-contrib/neotest-ginkgo/commit/8c68de9aae64543ebc8c2ac96ef46ec346325b38))
+
 ## [0.3.2](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.1...v0.3.2) (2026-03-22)
 
 
