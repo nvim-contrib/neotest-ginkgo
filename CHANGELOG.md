@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.3...v0.4.0) (2026-04-22)
+
+
+### Features
+
+* co-locate result output files with ginkgo --output-dir ([33a438b](https://github.com/nvim-contrib/neotest-ginkgo/commit/33a438b2056cedfa6758c21bc1d68f6ef10b64e7))
+
 ## [0.3.3](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.2...v0.3.3) (2026-04-11)
 
 
