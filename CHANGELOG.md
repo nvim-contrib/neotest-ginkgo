@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.4.0...v0.4.1) (2026-04-22)
+
+
+### Bug Fixes
+
+* traverse intermediate dirs without suite files ([785c380](https://github.com/nvim-contrib/neotest-ginkgo/commit/785c380dcb5da25faaeca7760dee81a28504e4e8))
+* use unique directory per run for ginkgo output ([6be5e48](https://github.com/nvim-contrib/neotest-ginkgo/commit/6be5e484e414806ca5e74f18d161a24f57d41b69))
+
 ## [0.4.0](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.3.3...v0.4.0) (2026-04-22)
 
 
