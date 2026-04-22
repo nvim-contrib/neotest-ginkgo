@@ -5,13 +5,13 @@ on:
     - cron: "0 0 * * 1"
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    timeout-minutes: 30
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -21,8 +21,17 @@ jobs:
 
       - name: Setup Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@v13
+        with:
+          use-flakehub: disabled
+          use-gha-cache: enabled
 
       - name: Update root flake.lock
         uses: DeterminateSystems/update-flake-lock@v28
         with:
           pr-labels: dependencies
+          pr-title: "chore(flake): update flake.lock"
+          commit-msg: "chore(flake): update flake.lock"
+          git-author-name: dependabot[bot]
+          git-author-email: dependabot[bot]@users.noreply.github.com
+          git-committer-name: dependabot[bot]
+          git-committer-email: dependabot[bot]@users.noreply.github.com
