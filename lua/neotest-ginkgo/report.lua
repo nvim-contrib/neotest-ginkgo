@@ -87,6 +87,7 @@ end
 function M.parse(spec, result, tree)
 	local collection = {}
 	local report_path = spec.context.report_output_path
+	local report_dir = vim.fn.fnamemodify(report_path, ":h")
 
 	local fok, report_data = pcall(lib.files.read, report_path)
 	if not fok then
@@ -134,6 +135,7 @@ function M.parse(spec, result, tree)
 					spec_item_node.status = spec_item.State
 				end
 
+				local report_file = vim.fn.fnamemodify(async.fn.tempname(), ":t")
 				-- set the node errors
 				if spec_item.Failure ~= nil then
 					spec_item_node.errors = {}
@@ -144,7 +146,7 @@ function M.parse(spec, result, tree)
 					-- prepare the output
 					local err_output = output.create_error_output(spec_item)
 					-- set the node output
-					spec_item_node.output = async.fn.tempname()
+					spec_item_node.output = report_dir .. "/" .. report_file
 					-- write the output
 					lib.files.write(spec_item_node.output, err_output)
 					-- set the node short attribute
@@ -157,7 +159,7 @@ function M.parse(spec, result, tree)
 					-- prepare the output
 					local spec_output = output.create_spec_output(spec_item)
 					-- set the node output
-					spec_item_node.output = async.fn.tempname()
+					spec_item_node.output = report_dir .. "/" .. report_file
 					-- write the output
 					lib.files.write(spec_item_node.output, spec_output)
 				end
@@ -185,7 +187,11 @@ function M.parse(spec, result, tree)
 
 					-- Initialize namespace if not exists
 					if namespaces[namespace_id] == nil then
-						namespaces[namespace_id] = { children = {} }
+						report_file = vim.fn.fnamemodify(async.fn.tempname(), ":t")
+						namespaces[namespace_id] = {
+							children = {},
+							output = report_dir .. "/" .. report_file,
+						}
 					end
 
 					-- Add child info to this namespace
@@ -201,12 +207,11 @@ function M.parse(spec, result, tree)
 
 		-- Create summary output from child info
 		local output_content = output.create_namespace_summary(data.children)
-		local output_path = async.fn.tempname()
-		lib.files.write(output_path, output_content)
+		lib.files.write(data.output, output_content)
 
 		collection[namespace_id] = {
 			status = status,
-			output = output_path,
+			output = data.output,
 		}
 	end
 
