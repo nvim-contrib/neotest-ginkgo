@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.4.2](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.4.1...v0.4.2) (2026-04-22)
+
+
+### Bug Fixes
+
+* parse multi-suite json reports for project-wide runs ([cfe462c](https://github.com/nvim-contrib/neotest-ginkgo/commit/cfe462c9eaa900aebce8498d2b2841891327a5dc))
+* replace vim.fn.glob with uv.fs_readdir in filter_dir ([8c68c5c](https://github.com/nvim-contrib/neotest-ginkgo/commit/8c68c5c8b3ca5c1d399b9643d97aca273209cbd9))
+
+
+### Reverts
+
+* remove collect_reports multi-suite logic ([0bc88f4](https://github.com/nvim-contrib/neotest-ginkgo/commit/0bc88f4ee0ed7c31bb23debfb421b1c45fef8c21))
+
 ## [0.4.1](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.4.0...v0.4.1) (2026-04-22)
 
 
