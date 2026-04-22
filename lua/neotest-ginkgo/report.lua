@@ -84,20 +84,49 @@ end
 ---@param result neotest.StrategyResult
 ---@param tree neotest.Tree
 ---@return table<string, neotest.Result>
+---Collect suite data from all report files in the output directory.
+---For single-suite runs ginkgo writes report.json directly.
+---For multi-suite runs (./...) ginkgo prefixes each file with the suite
+---name: integration_report.json, pg_report.json, etc.
+---@param report_path string Expected path of the primary report file
+---@param report_dir string Directory containing the report files
+---@return table[] Combined array of suite items, empty on failure
+local function collect_reports(report_path, report_dir)
+	local report_name = vim.fn.fnamemodify(report_path, ":t")
+	local suites = {}
+
+	-- Single-suite run: exact filename exists
+	local ok, data = pcall(lib.files.read, report_path)
+	if ok then
+		local dok, parsed = pcall(vim.json.decode, data, { luanil = { object = true } })
+		if dok then
+			vim.list_extend(suites, parsed)
+		end
+		return suites
+	end
+
+	-- Multi-suite run: {suite}_{report_name} files
+	for _, file in ipairs(vim.fn.glob(report_dir .. "/*_" .. report_name, false, true)) do
+		local fok, fdata = pcall(lib.files.read, file)
+		if fok then
+			local dok, parsed = pcall(vim.json.decode, fdata, { luanil = { object = true } })
+			if dok then
+				vim.list_extend(suites, parsed)
+			end
+		end
+	end
+
+	return suites
+end
+
 function M.parse(spec, result, tree)
 	local collection = {}
 	local report_path = spec.context.report_output_path
 	local report_dir = vim.fn.fnamemodify(report_path, ":h")
 
-	local fok, report_data = pcall(lib.files.read, report_path)
-	if not fok then
+	local report = collect_reports(report_path, report_dir)
+	if #report == 0 then
 		logger.error("No test output file found ", report_path)
-		return {}
-	end
-
-	local dok, report = pcall(vim.json.decode, report_data, { luanil = { object = true } })
-	if not dok then
-		logger.error("Failed to parse test output json ", report_path)
 		return {}
 	end
 
