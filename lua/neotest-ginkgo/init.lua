@@ -36,13 +36,18 @@ end
 ---@param root string Root directory of project
 ---@return boolean
 function adapter.filter_dir(name, rel_path, root)
-	if rel_path == "vendor" then
+	if name == "vendor" then
 		return false
 	end
 	local dir_path = root .. plenary.path.sep .. rel_path
 	local suite_file = dir_path .. plenary.path.sep .. "suite_test.go"
 	local named_suite_file = dir_path .. plenary.path.sep .. name .. "_suite_test.go"
-	return vim.fn.filereadable(suite_file) == 1 or vim.fn.filereadable(named_suite_file) == 1
+	if vim.fn.filereadable(suite_file) == 1 or vim.fn.filereadable(named_suite_file) == 1 then
+		return true
+	end
+	-- Allow intermediate directories that contain suite files deeper in the tree
+	return #vim.fn.glob(dir_path .. "/**/suite_test.go", false, true) > 0
+		or #vim.fn.glob(dir_path .. "/**/*_suite_test.go", false, true) > 0
 end
 
 ---@async
