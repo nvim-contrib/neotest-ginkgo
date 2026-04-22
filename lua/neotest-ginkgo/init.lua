@@ -35,19 +35,38 @@ end
 ---@param rel_path string Path to directory, relative to root
 ---@param root string Root directory of project
 ---@return boolean
+---Recursively check whether a directory contains a Ginkgo suite file
+---Uses libuv fs directly because vim.fn.glob cannot be called in async context
+---@param dir string Absolute directory path to search
+---@return boolean
+local function has_suite_file(dir)
+	local uv = vim.uv or vim.loop
+	local handle = uv.fs_opendir(dir, nil, 100)
+	if not handle then
+		return false
+	end
+	local entries = uv.fs_readdir(handle)
+	uv.fs_closedir(handle)
+	for _, entry in ipairs(entries or {}) do
+		if entry.type == "file" then
+			if entry.name == "suite_test.go" or vim.endswith(entry.name, "_suite_test.go") then
+				return true
+			end
+		elseif entry.type == "directory" and entry.name ~= "vendor" then
+			if has_suite_file(dir .. "/" .. entry.name) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 function adapter.filter_dir(name, rel_path, root)
 	if name == "vendor" then
 		return false
 	end
 	local dir_path = root .. plenary.path.sep .. rel_path
-	local suite_file = dir_path .. plenary.path.sep .. "suite_test.go"
-	local named_suite_file = dir_path .. plenary.path.sep .. name .. "_suite_test.go"
-	if vim.fn.filereadable(suite_file) == 1 or vim.fn.filereadable(named_suite_file) == 1 then
-		return true
-	end
-	-- Allow intermediate directories that contain suite files deeper in the tree
-	return #vim.fn.glob(dir_path .. "/**/suite_test.go", false, true) > 0
-		or #vim.fn.glob(dir_path .. "/**/*_suite_test.go", false, true) > 0
+	return has_suite_file(dir_path)
 end
 
 ---@async
