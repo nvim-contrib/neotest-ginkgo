@@ -65,12 +65,11 @@ end
 function M.build(args)
 	local position = args.tree:data()
 
-	-- Generate temporary file for JSON report output
-	-- Split into directory + filename so --output-dir controls where the report lands
-	-- (ginkgo writes --json-report relative to each suite's directory without --output-dir)
-	local report_path = async.fn.tempname()
-	local report_dir = vim.fn.fnamemodify(report_path, ":h")
-	local report_name = vim.fn.fnamemodify(report_path, ":t")
+	-- Each run gets its own unique directory so consumers can isolate output per run
+	local report_dir = async.fn.tempname()
+	vim.fn.mkdir(report_dir, "p")
+	local report_name = "report.json"
+	local report_path = report_dir .. "/" .. report_name
 
 	-- Build ginkgo command arguments
 	local cargs = vim.deepcopy(M.config)
