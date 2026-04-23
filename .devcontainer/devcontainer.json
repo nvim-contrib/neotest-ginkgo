@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/refs/heads/main/schemas/devContainer.base.schema.json",
   "name": "neotest-ginkgo",
   "image": "mcr.microsoft.com/devcontainers/base:bookworm",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/home/vscode/workspace",
   "mounts": [
     "source=${localWorkspaceFolderBasename}-nix,target=/nix,type=volume",
     "source=${localWorkspaceFolderBasename}-cache,target=/home/vscode/.cache,type=volume"

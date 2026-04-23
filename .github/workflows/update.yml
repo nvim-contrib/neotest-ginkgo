@@ -28,8 +28,8 @@ jobs:
       - name: Update root flake.lock
         uses: DeterminateSystems/update-flake-lock@v28
         with:
-          pr-labels: dependencies
           pr-title: "chore(flake): update flake.lock"
+          pr-labels: dependencies
           commit-msg: "chore(flake): update flake.lock"
           git-author-name: dependabot[bot]
           git-author-email: dependabot[bot]@users.noreply.github.com

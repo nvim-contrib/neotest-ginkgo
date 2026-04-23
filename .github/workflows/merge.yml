@@ -4,10 +4,6 @@ on:
   pull_request:
     types: [opened, reopened]
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   merge:
     if: github.actor == 'dependabot[bot]'
