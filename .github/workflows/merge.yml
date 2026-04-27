@@ -2,11 +2,11 @@ name: Auto Merge
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, labeled]
 
 jobs:
   merge:
-    if: github.actor == 'dependabot[bot]'
+    if: contains(github.event.pull_request.labels.*.name, 'auto-merge')
     runs-on: ubuntu-latest
     permissions:
       contents: write

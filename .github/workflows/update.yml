@@ -29,9 +29,7 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@v28
         with:
           pr-title: "chore(flake): update flake.lock"
-          pr-labels: dependencies
+          pr-labels: |
+            dependencies
+            auto-merge
           commit-msg: "chore(flake): update flake.lock"
-          git-author-name: dependabot[bot]
-          git-author-email: dependabot[bot]@users.noreply.github.com
-          git-committer-name: dependabot[bot]
-          git-committer-email: dependabot[bot]@users.noreply.github.com

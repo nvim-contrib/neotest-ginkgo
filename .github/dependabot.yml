@@ -11,6 +11,7 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+      - "auto-merge"
     commit-message:
       prefix: "chore"
       include: "scope"
