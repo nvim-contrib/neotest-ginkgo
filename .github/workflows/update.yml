@@ -14,20 +14,28 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout @clichepress/gcp-infrastructure/.github/terraform/.terraform/modules/bootstrap.bootstrap.seed_project/docs/upgrading_to_project_factory_v6.0.md
+
+      - name: Generate App token
+        id: app-token
+        uses: actions/create-github-app-token @clichepress/editorial-api/deployment/terraform/.terraform/modules/pubsub/docs/upgrading_to_v2.0.md
+        with:
+          app-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v22
+        uses: DeterminateSystems/nix-installer-action @devcontainer-env/devcontainer-env/target/debug/deps/devcontainer_env-2f2b36ac92170201.akskv22757jv7siw1ssgixrrt.03qtlhx.rcgu.o
 
       - name: Setup Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v13
+        uses: DeterminateSystems/magic-nix-cache-action @clichepress/gcp-infrastructure/.github/terraform/.terraform/modules/bootstrap.bootstrap.seed_project/docs/upgrading_to_project_factory_v13.0.md
         with:
           use-flakehub: disabled
           use-gha-cache: enabled
 
       - name: Update root flake.lock
-        uses: DeterminateSystems/update-flake-lock@v28
+        uses: DeterminateSystems/update-flake-lock @sqlc-plugins/sqlc-gen-mermaid/target/debug/deps/integration_test-600b2658a56f0a46.dj3rr1v28e67bz32d23nbnydf.1mak74i.rcgu.o
         with:
+          token: ${{ steps.app-token.outputs.token }}
           pr-title: "chore(flake): update flake.lock"
           pr-labels: |
             dependencies
