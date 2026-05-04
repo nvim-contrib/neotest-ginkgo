@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.3](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.4.2...v0.4.3) (2026-05-04)
+
+
+### Bug Fixes
+
+* **github:** correct action versions in update.yml ([f1306d3](https://github.com/nvim-contrib/neotest-ginkgo/commit/f1306d39878bd969eee56cd7e1a1865424c09b01))
+
 ## [0.4.2](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.4.1...v0.4.2) (2026-04-22)
 
 
