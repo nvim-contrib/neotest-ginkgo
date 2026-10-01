@@ -24,11 +24,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@v23
 
-      - name: Setup Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@v15
-        with:
-          use-flakehub: disabled
-          use-gha-cache: enabled
 
       - name: Run Tests
         run: |
