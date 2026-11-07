@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.4.3...v0.4.4) (2026-11-07)
+
+
+### Bug Fixes
+
+* **ci:** merge with the App token so main gets its CI run ([#62](https://github.com/nvim-contrib/neotest-ginkgo/issues/62)) ([2ed1d7d](https://github.com/nvim-contrib/neotest-ginkgo/commit/2ed1d7d3f487efc83a8a569a326b918161734929))
+
 ## [0.4.3](https://github.com/nvim-contrib/neotest-ginkgo/compare/v0.4.2...v0.4.3) (2026-05-04)
 
 
